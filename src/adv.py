@@ -1,4 +1,7 @@
+import random
 from room import Room
+from player import player
+from tool import Tool
 
 # Declare all the rooms
 
@@ -38,6 +41,61 @@ room['treasure'].s_to = room['narrow']
 #
 
 # Make a new player object that is currently in the 'outside' room.
+
+print('welcome to the adventure game!')
+
+answer = input("Would you like to play? (yes/no) ")
+
+if answer.lower().strip() == "yes":
+
+    playerName = input("what is your name?: ")
+
+    location = room['outside']
+
+    backpack = []
+
+    player = Player(playerName, location, backpack)
+
+    print(f"Hi {playerName}, you are in {location}")
+
+    print ("what would you like to do now?")
+
+    def to_do():
+        return str(input("['n'] go north ['e'] go east ['s'] go south ['w'] go est ['p'] pick up tool ['q'] quit"))
+
+    todo = to_do():
+    
+    backpack_action = 0
+
+    def search_backpack():
+        print('backpack: ')
+        player.search_backpack()
+        global todo
+        todo = str(input("['n'] go north ['e'] go east ['s'] go south ['w'] go est ['p'] pick up tool ['q'] quit"))
+
+    def next_move():
+        print(location)
+        print('what would you like to do now?')
+        global todo
+        todo = to_do()
+
+    def dead_end():
+        print('you have reached a dead end, try again')
+        global todo
+        todo = to_do()
+
+    while not todo = 'q':
+        if location == room['outside']:
+        elif location == room['foyer']:
+        elif location == room['overlook']:
+        elif location == room['narrow']:
+        elif location == room['treasure']:
+            print("Treasure Chamber", """You've found the long-lost treasure
+chamber! Sadly, it has already been completely emptied by
+earlier adventurers. The only exit is to the south.""")
+        
+else:
+    print("That's too bad!")
 
 # Write a loop that:
 #
