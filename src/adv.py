@@ -1,6 +1,7 @@
 import random
-from room import Room
 from player import Player
+from room import Room
+from item import Item
 
 # Declare all the rooms
 
@@ -23,7 +24,6 @@ chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south."""),
 }
 
-
 # Link rooms together
 
 room['outside'].n_to = room['foyer']
@@ -34,6 +34,12 @@ room['overlook'].s_to = room['foyer']
 room['narrow'].w_to = room['foyer']
 room['narrow'].n_to = room['treasure']
 room['treasure'].s_to = room['narrow']
+
+#Items
+room['treasure'].add_item(Item("Star of Africa", "The largest diamond in the world"))
+room['overlook'].add_item(Item("Paraglider", "Free-flying wing"))
+room['foyer'].add_item(Item("Match lighter", "Fire starter"))
+room['narrow'].add_item(Item("Gun", "Safety protection"))
 
 #
 # Main
@@ -47,24 +53,24 @@ answer = input("Would you like to play? (yes/no) ")
 
 if answer.lower().strip() == "yes":
 
-    playerName = input("what is your name?: ")
+    name = input("what is your name?: ")
 
-    location = room['outside']
+    currentLocation = room['outside']
 
-    player = Player(playerName, location)
+    player = Player(name, currentLocation)
 
-    print(f"Hi {playerName}, you are in {location}")
+    print(f"Hi {player.name}, you are in {player.currentLocation.display_name()}")
 
     print ("what would you like to do now?")
 
     def to_do():
-        return str(input("['n'] go north ['e'] go east ['s'] go south ['w'] go est ['p'] pick up tool ['q'] quit"))
+        return str(input("['n'] go north ['e'] go east ['s'] go south ['w'] go east ['p'] pick up item ['d'] drop item ['q'] quit "))
 
     todo = to_do()
 
     def next_move():
-        print(location)
-        print('what would you like to do now?')
+        print(f"Current Location: {player.currentLocation.display_name()}")
+        print('what would you like to do now? ')
         global todo
         todo = to_do()
 
@@ -74,43 +80,43 @@ if answer.lower().strip() == "yes":
         todo = to_do()
 
     while not todo == 'q':
-        if location == room['outside']:
+        if currentLocation == room['outside']:
             if todo == 'n':
-                location = room['outside'].n_to
+                player.currentLocation = player.currentLocation.n_to
                 next_move()
             else: 
                 dead_end()
 
-        elif location == room['foyer']:
+        elif currentLocation == room['foyer']:
             if todo == 's':
-                location = room['foyer'].s_to
+                player.currentLocation = player.currentLocation.s_to
                 next_move()
             elif todo == 'e':
-                location = room['foyer'].e_to
+                player.currentLocation = player.currentLocation.e_to
                 next_move()
             elif todo == 'n':
-                location = room['foyer'].n_to
+                player.currentLocation = player.currentLocation.n_to
                 next_move()
             else: 
                 dead_end()
             
-        elif location == room['overlook']:
+        elif currentLocation == room['overlook']:
             if todo == 's':
-                location = room['overlook'].s_to
+                player.currentLocation = player.currentLocation.s_to
                 next_move()
             else: 
                 dead_end()
 
-        elif location == room['narrow']:
+        elif currentLocation == room['foyer']:
             if todo == 'w':
-                location = room['narrow'].w_to
+                player.currentLocation = player.currentLocation.w_to
                 next_move()
             elif todo == 'n':
-                location = room['narrow'].n_to
+                player.currentLocation = player.currentLocation.n_to
                 next_move()
             else: 
                 dead_end()
-        elif location == room['treasure']:
+        elif currentLocation == room['treasure']:
             print("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
 earlier adventurers. The only exit is to the south.""")
