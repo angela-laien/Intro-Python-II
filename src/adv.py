@@ -80,14 +80,14 @@ if answer.lower().strip() == "yes":
         todo = to_do()
 
     while not todo == 'q':
-        if currentLocation == room['outside']:
+        if player.currentLocation == room['outside']:
             if todo == 'n':
                 player.currentLocation = player.currentLocation.n_to
                 next_move()
             else: 
                 dead_end()
 
-        elif currentLocation == room['foyer']:
+        elif player.currentLocation == room['foyer']:
             if todo == 's':
                 player.currentLocation = player.currentLocation.s_to
                 next_move()
@@ -97,29 +97,51 @@ if answer.lower().strip() == "yes":
             elif todo == 'n':
                 player.currentLocation = player.currentLocation.n_to
                 next_move()
+            elif todo == 'p':
+                item = player.currentLocation.take_item("Match Lighter")
+                player.take_item(item)
+            elif todo == 'd':
+                item = player.currentLocation.drop_item("Match Lighter")
+                player.drop_item(item)
             else: 
                 dead_end()
             
-        elif currentLocation == room['overlook']:
+        elif player.currentLocation == room['overlook']:
             if todo == 's':
                 player.currentLocation = player.currentLocation.s_to
                 next_move()
+            elif todo == 'p':
+                item = player.currentLocation.take_item("Paraglider")
+                player.take_item(item)
+            elif todo == 'd':
+                item = player.currentLocation.drop_item("Paraglider")
+                player.drop_item(item)
             else: 
                 dead_end()
 
-        elif currentLocation == room['foyer']:
+        elif player.currentLocation == room['narrow']:
             if todo == 'w':
                 player.currentLocation = player.currentLocation.w_to
                 next_move()
             elif todo == 'n':
                 player.currentLocation = player.currentLocation.n_to
                 next_move()
+            elif todo == 'p':
+                item = player.currentLocation.take_item("Gun")
+                player.take_item(item)
+            elif todo == 'd':
+                item = player.currentLocation.drop_item("Gun")
+                player.drop_item(item)
             else: 
                 dead_end()
-        elif currentLocation == room['treasure']:
-            print("Treasure Chamber", """You've found the long-lost treasure
-chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south.""")
+
+        elif player.currentLocation == room['treasure']:
+            if todo == 'p':
+               item = player.currentLocation.take_item("Star of Africa")
+               player.take_item(item)
+               print("You won the game!")
+            else: 
+                dead_end()
         
 else:
     print("That's too bad!")
