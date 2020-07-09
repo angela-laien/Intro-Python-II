@@ -1,7 +1,6 @@
 import random
 from room import Room
-from player import player
-from tool import Tool
+from player import Player
 
 # Declare all the rooms
 
@@ -52,9 +51,7 @@ if answer.lower().strip() == "yes":
 
     location = room['outside']
 
-    backpack = []
-
-    player = Player(playerName, location, backpack)
+    player = Player(playerName, location)
 
     print(f"Hi {playerName}, you are in {location}")
 
@@ -63,15 +60,7 @@ if answer.lower().strip() == "yes":
     def to_do():
         return str(input("['n'] go north ['e'] go east ['s'] go south ['w'] go est ['p'] pick up tool ['q'] quit"))
 
-    todo = to_do():
-    
-    backpack_action = 0
-
-    def search_backpack():
-        print('backpack: ')
-        player.search_backpack()
-        global todo
-        todo = str(input("['n'] go north ['e'] go east ['s'] go south ['w'] go est ['p'] pick up tool ['q'] quit"))
+    todo = to_do()
 
     def next_move():
         print(location)
@@ -84,11 +73,43 @@ if answer.lower().strip() == "yes":
         global todo
         todo = to_do()
 
-    while not todo = 'q':
+    while not todo == 'q':
         if location == room['outside']:
+            if todo == 'n':
+                location = room['outside'].n_to
+                next_move()
+            else: 
+                dead_end()
+
         elif location == room['foyer']:
+            if todo == 's':
+                location = room['foyer'].s_to
+                next_move()
+            elif todo == 'e':
+                location = room['foyer'].e_to
+                next_move()
+            elif todo == 'n':
+                location = room['foyer'].n_to
+                next_move()
+            else: 
+                dead_end()
+            
         elif location == room['overlook']:
+            if todo == 's':
+                location = room['overlook'].s_to
+                next_move()
+            else: 
+                dead_end()
+
         elif location == room['narrow']:
+            if todo == 'w':
+                location = room['narrow'].w_to
+                next_move()
+            elif todo == 'n':
+                location = room['narrow'].n_to
+                next_move()
+            else: 
+                dead_end()
         elif location == room['treasure']:
             print("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
