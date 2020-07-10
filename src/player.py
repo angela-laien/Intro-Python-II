@@ -9,10 +9,10 @@ class Player:
         self.inventory = []
     def take_item(self, item):
         self.inventory.append(item)
-        item.on_take()
+        print(f"You picked up the {item}")
     def drop_item(self, tool):
         for o in self.inventory:
             if o.name == tool:
                 self.inventory.remove(o)
-                o.on_drop()
+                print(f"You dropped the {self.name}")
                 return o

@@ -101,9 +101,11 @@ if answer.lower().strip() == "yes":
             elif todo == 'p':
                 item = player.currentLocation.remove_item("Match Lighter")
                 player.take_item(item)
+                next_move()
             elif todo == 'd':
                 item = player.currentLocation.add_item("Match Lighter")
                 player.drop_item(item)
+                next_move()
             else: 
                 dead_end()
             
@@ -114,9 +116,11 @@ if answer.lower().strip() == "yes":
             elif todo == 'p':
                 item = player.currentLocation.remove_item("Paraglider")
                 player.take_item(item)
+                next_move()
             elif todo == 'd':
                 item = player.currentLocation.add_item("Paraglider")
                 player.drop_item(item)
+                next_move()
             else: 
                 dead_end()
 
@@ -130,17 +134,20 @@ if answer.lower().strip() == "yes":
             elif todo == 'p':
                 item = player.currentLocation.remove_item("Gun")
                 player.take_item(item)
+                next_move()
             elif todo == 'd':
                 item = player.currentLocation.add_item("Gun")
                 player.drop_item(item)
+                next_move()
             else: 
                 dead_end()
 
         elif player.currentLocation == room['treasure']:
             if todo == 'p':
-               print("You won the game!")
                item = player.currentLocation.remove_item("Star of Africa")
                player.take_item(item)
+               print("You won the game!")
+               break
             else: 
                 dead_end()
         

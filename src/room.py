@@ -23,11 +23,10 @@ class Room:
             tool += f"{item}\n"
         return tool
 
-    def remove_item(self, tool):
-        for t in self.items:
-            if t.name == tool:
-                self.items.remove(t)
-                return t
+    def remove_item(self, item):
+        for item in self.items:
+            self.items.remove(item)
+            return item
         else:
             return "No such item in this room."
             
