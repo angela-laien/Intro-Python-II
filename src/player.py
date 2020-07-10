@@ -8,8 +8,8 @@ class Player:
         self.currentLocation = currentLocation
         self.inventory = []
     def take_item(self, item):
-        item.on_take()
         self.inventory.append(item)
+        item.on_take()
     def drop_item(self, tool):
         for o in self.inventory:
             if o.name == tool:

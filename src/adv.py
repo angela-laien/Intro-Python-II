@@ -70,6 +70,7 @@ if answer.lower().strip() == "yes":
 
     def next_move():
         print(f"Current Location: {player.currentLocation.display_name()}")
+        print(player.currentLocation.display_items())
         print('what would you like to do now? ')
         global todo
         todo = to_do()
@@ -98,10 +99,10 @@ if answer.lower().strip() == "yes":
                 player.currentLocation = player.currentLocation.n_to
                 next_move()
             elif todo == 'p':
-                item = player.currentLocation.take_item("Match Lighter")
+                item = player.currentLocation.remove_item("Match Lighter")
                 player.take_item(item)
             elif todo == 'd':
-                item = player.currentLocation.drop_item("Match Lighter")
+                item = player.currentLocation.add_item("Match Lighter")
                 player.drop_item(item)
             else: 
                 dead_end()
@@ -111,10 +112,10 @@ if answer.lower().strip() == "yes":
                 player.currentLocation = player.currentLocation.s_to
                 next_move()
             elif todo == 'p':
-                item = player.currentLocation.take_item("Paraglider")
+                item = player.currentLocation.remove_item("Paraglider")
                 player.take_item(item)
             elif todo == 'd':
-                item = player.currentLocation.drop_item("Paraglider")
+                item = player.currentLocation.add_item("Paraglider")
                 player.drop_item(item)
             else: 
                 dead_end()
@@ -127,19 +128,19 @@ if answer.lower().strip() == "yes":
                 player.currentLocation = player.currentLocation.n_to
                 next_move()
             elif todo == 'p':
-                item = player.currentLocation.take_item("Gun")
+                item = player.currentLocation.remove_item("Gun")
                 player.take_item(item)
             elif todo == 'd':
-                item = player.currentLocation.drop_item("Gun")
+                item = player.currentLocation.add_item("Gun")
                 player.drop_item(item)
             else: 
                 dead_end()
 
         elif player.currentLocation == room['treasure']:
             if todo == 'p':
-               item = player.currentLocation.take_item("Star of Africa")
-               player.take_item(item)
                print("You won the game!")
+               item = player.currentLocation.remove_item("Star of Africa")
+               player.take_item(item)
             else: 
                 dead_end()
         
